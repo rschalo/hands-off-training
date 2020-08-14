@@ -17,7 +17,13 @@ const userSchema = new Schema(
       required: true,
       trim: true,
       minlength: 2
-    }
+    },
+    workouts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Workout'
+      }
+    ]
   },
   {
     timestamps: true
