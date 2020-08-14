@@ -2,9 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// TODO: update for workout/workout class
+
 import Navbar from './components/navbar.component';
-import ExercisesList from './components/exercises-list.component';
-import EditExercise from './components/edit-exercise.component';
+import WorkoutClassList from './components/workout-classlist.component';
+import EditClass from './components/edit-class.component';
 import CreateExercise from './components/create-exercise.component';
 import CreateUser from './components/create-user.component';
 
@@ -13,8 +15,8 @@ function App() {
     <Router>
       <Navbar />
       <br />
-      <Route path="/" exact component={ExercisesList} />
-      <Route path="/edit/:id" component={EditExercise} />
+      <Route path="/" exact component={WorkoutClassList} />
+      <Route path="/edit/:id" component={EditClass} />
       <Route path="/create" component={CreateExercise} />
       <Route path="/user" component={CreateUser} />
     </Router>
