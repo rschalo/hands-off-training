@@ -6,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Navbar from './components/navbar.component';
 import WorkoutClassList from './components/workout-classlist.component';
-import EditClass from './components/edit-class.component';
-import CreateExercise from './components/create-exercise.component';
+import EditClass from './components/edit-workout-class.component';
+import CreateWorkoutClass from './components/create-workout-class.component';
 import CreateUser from './components/create-user.component';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
       <br />
       <Route path="/" exact component={WorkoutClassList} />
       <Route path="/edit/:id" component={EditClass} />
-      <Route path="/create" component={CreateExercise} />
+      <Route path="/create" component={CreateWorkoutClass} />
       <Route path="/user" component={CreateUser} />
     </Router>
   );

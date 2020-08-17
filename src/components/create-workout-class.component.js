@@ -5,7 +5,7 @@ import axios from 'axios';
 
 // TODO: go through code and update to workout/workout class
 
-export default class CreateExercise extends Component {
+export default class CreateWorkoutClass extends Component {
   constructor(props) {
     super(props);
 

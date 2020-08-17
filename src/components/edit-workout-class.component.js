@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
-// import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 
-export default class EditExercise extends Component {
+export default class EditClass extends Component {
   constructor(props) {
     super(props);
 
@@ -24,7 +24,7 @@ export default class EditExercise extends Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:5000/exercises/' + this.props.match.params.id)
+      .get('http://localhost:5000/workouts/' + this.props.match.params.id)
       .then((response) => {
         this.setState({
           username: response.data.username,
@@ -85,7 +85,7 @@ export default class EditExercise extends Component {
 
     axios
       .post(
-        'http://localhost:5000/exercises/update/' + this.props.match.params.id,
+        'http://localhost:5000/workouts/update/' + this.props.match.params.id,
         exercise
       )
       .then((res) => console.log(res.data));
@@ -96,7 +96,7 @@ export default class EditExercise extends Component {
   render() {
     return (
       <div>
-        <h3>Edit Exercise Log</h3>
+        <h3>Edit Workout Log</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Username: </label>
