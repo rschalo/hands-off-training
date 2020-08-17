@@ -1,7 +1,7 @@
-import { Schema as _Schema, model } from 'mongoose';
-import passportLocalMongoose from 'passport-local-mongoose';
+const passportLocalMongoose = require('passport-local-mongoose');
+const mongoose = require('mongoose');
 
-const Schema = _Schema;
+const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
@@ -17,7 +17,13 @@ const userSchema = new Schema(
       required: true,
       trim: true,
       minlength: 2
-    }
+    },
+    workouts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Workout'
+      }
+    ]
   },
   {
     timestamps: true
@@ -26,6 +32,6 @@ const userSchema = new Schema(
 
 userSchema.plugin(passportLocalMongoose);
 
-const User = model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
-export default User;
+module.exports = User;
