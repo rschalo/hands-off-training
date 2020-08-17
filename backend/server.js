@@ -1,7 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-// const exercisesRouter =require() './routes/exercises';
 const usersRouter = require('./routes/users.js');
+const workoutsRouter = require('./routes/workouts.js');
 const User = require('./models/user.model.js');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -46,6 +46,7 @@ passport.deserializeUser(User.deserializeUser());
 
 // app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);
+app.use('/workouts', workoutsRouter);
 
 app.listen(port, () => {
   console.log(`The server is live on ${port}`);
