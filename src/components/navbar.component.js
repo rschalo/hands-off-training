@@ -9,7 +9,7 @@ export default class Navbar extends Component {
           Hands Off Training
         </Link>
         <div className="collpase navbar-collapse">
-          <ul className="navbar-nav mr-auto">
+          <ul className="navbar-nav ml-auto">
             <li className="navbar-item">
               <Link to="/" className="nav-link">
                 Workout Classes
