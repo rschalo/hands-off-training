@@ -9,6 +9,7 @@ import WorkoutClassList from './components/workout-classlist.component';
 import EditClass from './components/edit-workout-class.component';
 import CreateWorkoutClass from './components/create-workout-class.component';
 import CreateUser from './components/create-user.component';
+import LoginUser from './components/login-user.component';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path="/edit/:id" component={EditClass} />
       <Route path="/create" component={CreateWorkoutClass} />
       <Route path="/user" component={CreateUser} />
+      <Route path="/login" component={LoginUser} />
     </Router>
   );
 }

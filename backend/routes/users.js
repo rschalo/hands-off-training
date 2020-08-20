@@ -18,12 +18,8 @@ router.route('/signup').post((req, res) => {
   });
 });
 
-router.post(
-  '/login',
-  passport.authenticate('local', { failureRedirect: '/login' }),
-  function (req, res) {
-    res.redirect('/');
-  }
-);
+router.post('/login', passport.authenticate('local'), (req, res) => {
+  console.log(`${req.body.username} has logged in!`);
+});
 
 module.exports = router;

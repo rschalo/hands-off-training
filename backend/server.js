@@ -49,7 +49,7 @@ passport.use(
       if (!user) {
         return done(null, false);
       }
-      if (!user.verifyPassword(password)) {
+      if (!user.checkPassword(password)) {
         return done(null, false);
       }
       return done(null, user);
