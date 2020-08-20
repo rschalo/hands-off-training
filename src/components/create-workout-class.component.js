@@ -9,6 +9,7 @@ export default class CreateWorkoutClass extends Component {
   constructor(props) {
     super(props);
 
+    this.userInput = React.createRef();
     this.state = {
       username: '',
       description: '',
@@ -24,13 +25,6 @@ export default class CreateWorkoutClass extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      users: ['test user'],
-      username: 'test user'
-    });
-  }
-
-  componentWillMount() {
     axios
       .get('http://localhost:5000/users/')
       .then((response) => {
@@ -90,7 +84,7 @@ export default class CreateWorkoutClass extends Component {
           <div className="form-group">
             <label>Username: </label>
             <select
-              ref="userInput"
+              ref={this.userInput}
               required
               className="form-control"
               value={this.state.username}
