@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-export default function Login() {
+export default function Login(props) {
   const [usernameState, setUsername] = useState('');
   const [passwordState, setPassword] = useState('');
   const [redirectState, setRedirect] = useState('');
 
+  const setLoggedIn = props.setLoggedIn;
+  const setAppUser = props.setAppUser;
   function validateForm() {
     return usernameState.length > 0 && passwordState.length > 0;
   }
@@ -18,9 +20,9 @@ export default function Login() {
       password: passwordState
     };
     console.log(newUser);
-    axios
-      .post('http://localhost:5000/users/login', newUser)
-      .then((res) => console.log(res.data));
+    axios.post('http://localhost:5000/users/login', newUser).then((res) => {
+      console.log(res.data);
+    });
     // Use immediately invoked function expression for state hooks to clear
     (() => {
       setPassword('');

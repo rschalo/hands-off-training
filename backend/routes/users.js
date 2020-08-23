@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const passport = require('passport');
 let User = require('../models/user.model');
+const passport = require('../passport');
 
 router.route('/').get((req, res) => {
   User.find()
@@ -8,27 +9,45 @@ router.route('/').get((req, res) => {
     .catch((err) => res.status(400).json('Error: ' + err));
 });
 
-router.route('/signup').post((req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const newUser = new User({ username, password });
-  newUser.save((err, user) => {
-    if (err) return res.json(err);
-    return res.json(user);
+router.post('/signup', (req, res) => {
+  const { username, password } = req.body;
+  // ADD VALIDATION
+  User.findOne({ username: username }, (err, user) => {
+    if (err) {
+      console.log('User.js post error: ', err);
+    } else if (user) {
+      res.json({
+        error: `Sorry, already a user with the username: ${username}`
+      });
+    } else {
+      const newUser = new User({
+        username: username,
+        password: password
+      });
+      newUser.save((err, savedUser) => {
+        if (err) return res.json(err);
+        res.json(savedUser);
+      });
+    }
   });
 });
 
-router.post('/login', passport.authenticate('local'), (req, res) => {
-  console.log(`${req.body.username} has logged in!`);
-  const user = JSON.parse(JSON.stringify(req.user));
-  const cleanUser = Object.assign({}, user);
-  if (cleanUser.local) {
-    console.log(`Deleting ${cleanUser.local.password}`);
-    delete cleanUser.local.password;
+router.post(
+  '/login',
+  function (req, res, next) {
+    console.log('routes/user.js, login, req.body: ');
+    console.log(req.body);
+    next();
+  },
+  passport.authenticate('local'),
+  (req, res) => {
+    console.log('logged in', req.user);
+    var userInfo = {
+      username: req.user.username
+    };
+    res.send(userInfo);
   }
-  res.json({ user: cleanUser });
-  res.locals.username = req.body.username;
-});
+);
 
 router.post('/logout', (req, res) => {
   if (req.user) {
