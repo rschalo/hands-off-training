@@ -3,6 +3,24 @@ import { Link } from 'react-router-dom';
 
 export default class Navbar extends Component {
   render() {
+    let loggedInStatus;
+    if (this.props.loggedIn) {
+      loggedInStatus = (
+        <li className="navbar-item">
+          <Link to="/logout" className="nav-link">
+            Logout
+          </Link>
+        </li>
+      );
+    } else {
+      loggedInStatus = (
+        <li className="navbar-item">
+          <Link to="/login" className="nav-link">
+            Login
+          </Link>
+        </li>
+      );
+    }
     return (
       <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
         <Link to="/" className="navbar-brand">
@@ -25,16 +43,7 @@ export default class Navbar extends Component {
                 Create User
               </Link>
             </li>
-            <li className="navbar-item">
-              <Link to="/login" className="nav-link">
-                Login
-              </Link>
-            </li>
-            <li className="navbar-item">
-              <Link to="/logout" className="nav-link">
-                Logout
-              </Link>
-            </li>
+            {loggedInStatus}
           </ul>
         </div>
       </nav>

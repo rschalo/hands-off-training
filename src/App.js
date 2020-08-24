@@ -20,37 +20,70 @@ class App extends React.Component {
       loggedIn: false,
       user: null
     };
-    this.login = this.login.bind(this);
+    this.getUser = this.getUser.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.updateUser = this.updateUser.bind(this);
   }
 
-  login(username, password) {
-    axios
-      .post('/auth/login', {
-        username,
-        password
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          // update the state
-          this.setState({
-            loggedIn: true,
-            user: response.data.user
-          });
-        }
-      });
+  componentDidMount() {
+    this.getUser();
   }
+
+  updateUser(userObject) {
+    this.setState(userObject);
+  }
+
+  getUser() {
+    axios.get('/user/').then((response) => {
+      console.log('Get user response: ');
+      console.log(response.data);
+      if (response.data.user) {
+        console.log('Get User: There is a user saved in the server session: ');
+
+        this.setState({
+          loggedIn: true,
+          username: response.data.user.username
+        });
+      } else {
+        console.log('Get user: no user');
+        this.setState({
+          loggedIn: false,
+          username: null
+        });
+      }
+    });
+  }
+
   render() {
+    const username = this.state.username;
+    const loggedIn = this.state.loggedIn;
+    let greeting;
+    if (loggedIn !== false && username.length > 0) {
+      greeting = <div>Hello {username}</div>;
+    } else {
+      greeting = <div>Hello! Please use the login function</div>;
+    }
     return (
       <Router>
-        <Navbar />
+        <Navbar loggedIn={loggedIn} />
         <br />
+        {greeting}
         <Route path="/" exact component={WorkoutClassList} />
         <Route path="/edit/:id" component={EditClass} />
         <Route path="/create" component={CreateWorkoutClass} />
         <Route path="/user" component={CreateUser} />
-        <Route path="/login" component={LoginUser} login={this.login} />
-        <Route path="/logout" component={LogoutUser} />
+        <Route
+          path="/login"
+          render={(props) => (
+            <LoginUser {...props} updateUser={this.updateUser} />
+          )}
+        />
+        <Route
+          path="/logout"
+          render={(props) => (
+            <LogoutUser {...props} updateUser={this.updateUser} />
+          )}
+        />
       </Router>
     );
   }
