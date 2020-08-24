@@ -21,12 +21,33 @@ export default class Navbar extends Component {
         </li>
       );
     }
+    let userName;
+    if (this.props.userName !== null) {
+      userName = (
+        <li className="navbar-item">
+          <Link to="/signup" className="nav-link">
+            Sign Up
+          </Link>
+        </li>
+      );
+    }
     return (
       <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
         <Link to="/" className="navbar-brand">
           Hands Off Training
         </Link>
-        <div className="collpase navbar-collapse">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarToggler"
+          aria-controls="navbarToggler"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="navbar-collapse collapse" id="navbarToggler">
           <ul className="navbar-nav ml-auto">
             <li className="navbar-item">
               <Link to="/" className="nav-link">
@@ -38,11 +59,7 @@ export default class Navbar extends Component {
                 Create Workout Class
               </Link>
             </li>
-            <li className="navbar-item">
-              <Link to="/user" className="nav-link">
-                Create User
-              </Link>
-            </li>
+            {userName}
             {loggedInStatus}
           </ul>
         </div>
