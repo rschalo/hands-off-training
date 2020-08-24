@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
+import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 // TODO: update for workout/workout class
 
@@ -65,25 +67,27 @@ class App extends React.Component {
     }
     return (
       <Router>
-        <Navbar loggedIn={loggedIn} />
+        <Navbar loggedIn={loggedIn} username={username} />
         <br />
-        {greeting}
-        <Route path="/" exact component={WorkoutClassList} />
-        <Route path="/edit/:id" component={EditClass} />
-        <Route path="/create" component={CreateWorkoutClass} />
-        <Route path="/user" component={CreateUser} />
-        <Route
-          path="/login"
-          render={(props) => (
-            <LoginUser {...props} updateUser={this.updateUser} />
-          )}
-        />
-        <Route
-          path="/logout"
-          render={(props) => (
-            <LogoutUser {...props} updateUser={this.updateUser} />
-          )}
-        />
+        <div className="container-fluid">
+          {greeting}
+          <Route path="/" exact component={WorkoutClassList} />
+          <Route path="/edit/:id" component={EditClass} />
+          <Route path="/create" component={CreateWorkoutClass} />
+          <Route path="/signup" component={CreateUser} />
+          <Route
+            path="/login"
+            render={(props) => (
+              <LoginUser {...props} updateUser={this.updateUser} />
+            )}
+          />
+          <Route
+            path="/logout"
+            render={(props) => (
+              <LogoutUser {...props} updateUser={this.updateUser} />
+            )}
+          />
+        </div>
       </Router>
     );
   }
