@@ -48,6 +48,20 @@ router.post(
   }
 );
 
+// GOOGLE API
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile"] })
+);
+
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  (req, res) => {
+    res.redirect("/");
+  }
+);
+
 router.post('/logout', (req, res) => {
   if (req.user) {
     req.session.destroy();
